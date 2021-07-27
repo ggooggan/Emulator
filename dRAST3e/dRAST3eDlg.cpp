@@ -162,10 +162,6 @@ void CdRAST3eDlg::OnBnClickedButtonConnect()
 {
 
 	// test 목적
-	unit_adp unAdp;
-	unit_gripper unGripper;
-
-	unAdp.thread_connect(123);
-	unGripper.thread_connect(456);
-	
+	unit_adp::getInstance().thread_connect(123);
+	unit_gripper::getInstance().thread_connect(456);
 }

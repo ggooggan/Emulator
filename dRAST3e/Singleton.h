@@ -4,7 +4,7 @@
 template <typename T>
 
 class Singleton
-{
+{ 
 public:
     static T* getInstancePtr()
     {
@@ -16,8 +16,8 @@ public:
             }
 
         return _instance;
-    }
-
+    } 
+     
     static T& getInstance()
     {
         if (_instance == nullptr)

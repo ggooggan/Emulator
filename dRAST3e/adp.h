@@ -1,13 +1,10 @@
 #pragma once
 #include "tcp.h"
-class unit_adp
+#include "Singleton.h"
+
+class unit_adp : public Singleton<unit_adp>
 {
 public:
-	unit_adp()
-	{
-		
-	}
-
 	void thread_connect(int port)
 	{
 		adp_port = port;

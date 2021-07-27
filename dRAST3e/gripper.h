@@ -1,13 +1,11 @@
 #pragma once
 
 #include "tcp.h"
-class unit_gripper
+#include "Singleton.h"
+
+class unit_gripper : public Singleton< unit_gripper>
 {
 public:
-	unit_gripper()
-	{
-
-	}
 
 	void thread_connect(int port)
 	{
