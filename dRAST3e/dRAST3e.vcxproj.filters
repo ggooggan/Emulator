@@ -69,6 +69,9 @@
     <ClInclude Include="uiMain.h">
       <Filter>소스 파일\ui</Filter>
     </ClInclude>
+    <ClInclude Include="TAB1.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dRAST3e.cpp">
@@ -85,6 +88,9 @@
     </ClCompile>
     <ClCompile Include="TCP_subject.cpp">
       <Filter>소스 파일\pattern</Filter>
+    </ClCompile>
+    <ClCompile Include="TAB1.cpp">
+      <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

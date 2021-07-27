@@ -8,6 +8,8 @@
 #include "afxdialogex.h"
 #include <iostream>
 #include "uiMain.h"
+
+
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
@@ -31,6 +33,7 @@ protected:
 // 구현입니다.
 protected:
 	DECLARE_MESSAGE_MAP()
+
 };
 
 CAboutDlg::CAboutDlg() : CDialogEx(IDD_ABOUTBOX)
@@ -59,6 +62,7 @@ CdRAST3eDlg::CdRAST3eDlg(CWnd* pParent /*=nullptr*/)
 void CdRAST3eDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialogEx::DoDataExchange(pDX);
+	DDX_Control(pDX, IDC_TAB1, m_mainTap);
 }
 
 BEGIN_MESSAGE_MAP(CdRAST3eDlg, CDialogEx)
@@ -102,6 +106,16 @@ BOOL CdRAST3eDlg::OnInitDialog()
 	SetIcon(m_hIcon, FALSE);		// 작은 아이콘을 설정합니다.
 
 	// TODO: 여기에 추가 초기화 작업을 추가합니다.
+
+	CString strTab = _T("");
+	strTab.Format(_T("TAB1"));
+	this->m_mainTap.InsertItem(0, strTab, 0);
+
+	CRect rect;
+	this->m_mainTap.GetClientRect(&rect);
+	this->m_tab1.Create(IDD_DIALOG1, &this->m_mainTap);
+	this->m_tab1.SetWindowPos(NULL, 5, 25, rect.Width() - 10, rect.Height() - 30, SWP_SHOWWINDOW | SWP_NOZORDER);
+	this->m_pwnShow = &this->m_tab1;
 
 	return TRUE;  // 포커스를 컨트롤에 설정하지 않으면 TRUE를 반환합니다.
 }

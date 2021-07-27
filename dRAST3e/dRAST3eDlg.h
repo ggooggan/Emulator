@@ -3,7 +3,8 @@
 //
 
 #pragma once
-
+#include "afxcmn.h"
+#include "TAB1.h"
 
 // CdRAST3eDlg 대화 상자
 class CdRAST3eDlg : public CDialogEx
@@ -11,6 +12,10 @@ class CdRAST3eDlg : public CDialogEx
 // 생성입니다.
 public:
 	CdRAST3eDlg(CWnd* pParent = nullptr);	// 표준 생성자입니다.
+
+	TAB1 m_tab1;
+	CWnd* m_pwnShow;
+
 
 // 대화 상자 데이터입니다.
 #ifdef AFX_DESIGN_TIME
@@ -34,4 +39,5 @@ protected:
 public:
 	afx_msg void OnBnClickedButtonConnect();
 	afx_msg void OnBnClickedOk();
+	CTabCtrl m_mainTap;
 };
