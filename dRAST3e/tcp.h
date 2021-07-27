@@ -7,6 +7,7 @@
 #include <memory>
 #include <utility>
 #include <boost/asio.hpp>
+#include "TCP_subject.h"
 
 using boost::asio::ip::tcp;
 
@@ -44,6 +45,17 @@ private:
         std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 
         auto self(shared_from_this());
+
+        if (moduleName == "adp")
+        {
+            TCPSubject::getInstance().sendMessage("adp_message");
+        }
+        else
+        {
+            TCPSubject::getInstance().sendMessage("no");
+        }
+
+        
         data_[0] = 'H';
         boost::asio::async_write(socket_, boost::asio::buffer(data_, length),
             [this, self](boost::system::error_code ec, std::size_t /*length*/)

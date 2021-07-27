@@ -22,6 +22,9 @@
     <Filter Include="소스 파일\pattern">
       <UniqueIdentifier>{194600bf-3ee3-42de-982b-10feff213413}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\ui">
+      <UniqueIdentifier>{b4eb6dd0-31e7-4911-937e-d321dd3b632f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="dRAST3e.h">
@@ -57,6 +60,15 @@
     <ClInclude Include="Singleton.h">
       <Filter>소스 파일\pattern</Filter>
     </ClInclude>
+    <ClInclude Include="TCP_subject.h">
+      <Filter>소스 파일\pattern</Filter>
+    </ClInclude>
+    <ClInclude Include="test.h">
+      <Filter>소스 파일\pattern</Filter>
+    </ClInclude>
+    <ClInclude Include="uiMain.h">
+      <Filter>소스 파일\ui</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dRAST3e.cpp">
@@ -70,6 +82,9 @@
     </ClCompile>
     <ClCompile Include="tcp.h">
       <Filter>소스 파일\tcp</Filter>
+    </ClCompile>
+    <ClCompile Include="TCP_subject.cpp">
+      <Filter>소스 파일\pattern</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

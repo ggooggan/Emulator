@@ -7,9 +7,7 @@
 #include "dRAST3eDlg.h"
 #include "afxdialogex.h"
 #include <iostream>
-#include "adp.h"
-#include "gripper.h"
-
+#include "uiMain.h"
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
@@ -68,6 +66,7 @@ BEGIN_MESSAGE_MAP(CdRAST3eDlg, CDialogEx)
 	ON_WM_PAINT()
 	ON_WM_QUERYDRAGICON()
 	ON_BN_CLICKED(IDC_BUTTON_Connect, &CdRAST3eDlg::OnBnClickedButtonConnect)
+	ON_BN_CLICKED(IDOK, &CdRAST3eDlg::OnBnClickedOk)
 END_MESSAGE_MAP()
 
 
@@ -157,11 +156,16 @@ HCURSOR CdRAST3eDlg::OnQueryDragIcon()
 }
 
 
-
+CEdit* pEdit;
 void CdRAST3eDlg::OnBnClickedButtonConnect()
 {
+	pEdit = (CEdit*)GetDlgItem(IDC_EDIT1);
+	uiMain::getInstance().setLogEdit(pEdit);
+	uiMain::getInstance().unit_connect();
+}
 
-	// test 목적
-	unit_adp::getInstance().thread_connect(123);
-	unit_gripper::getInstance().thread_connect(456);
+void CdRAST3eDlg::OnBnClickedOk()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	CDialogEx::OnOK();
 }

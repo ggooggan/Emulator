@@ -208,6 +208,9 @@
     <ClInclude Include="Subject.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="gripper.h" />
+    <ClInclude Include="TCP_subject.h" />
+    <ClInclude Include="test.h" />
+    <ClInclude Include="uiMain.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dRAST3e.cpp" />
@@ -219,6 +222,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="tcp.h" />
+    <ClCompile Include="TCP_subject.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="dRAST3e.rc" />

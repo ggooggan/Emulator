@@ -1,8 +1,9 @@
 #pragma once
 #include "tcp.h"
 #include "Singleton.h"
+#include "TCP_subject.h"
 
-class unit_adp : public Singleton<unit_adp>
+class unit_adp : public Singleton<unit_adp>, public Observer<TCPSubject>
 {
 public:
 	void thread_connect(int port)
@@ -17,6 +18,12 @@ public:
 			});
 
 		adp_th.detach();
+		TCPSubject::getInstance().attach(*this);
+	}
+
+	virtual void update(TCPSubject* subject)
+	{
+		std::string message = subject->getMessage();
 	}
 private:
 	server* sv = nullptr;
