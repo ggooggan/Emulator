@@ -72,6 +72,15 @@
     <ClInclude Include="TAB1.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="stage.h">
+      <Filter>소스 파일\unit</Filter>
+    </ClInclude>
+    <ClInclude Include="io.h">
+      <Filter>소스 파일\unit</Filter>
+    </ClInclude>
+    <ClInclude Include="temperature.h">
+      <Filter>소스 파일\unit</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dRAST3e.cpp">

@@ -108,12 +108,12 @@ BOOL CdRAST3eDlg::OnInitDialog()
 	// TODO: 여기에 추가 초기화 작업을 추가합니다.
 
 	CString strTab = _T("");
-	strTab.Format(_T("TAB1"));
+	strTab.Format(_T("IO"));
 	this->m_mainTap.InsertItem(0, strTab, 0);
 
 	CRect rect;
 	this->m_mainTap.GetClientRect(&rect);
-	this->m_tab1.Create(IDD_DIALOG1, &this->m_mainTap);
+	this->m_tab1.Create(IDD_DIALOG_IO, &this->m_mainTap);
 	this->m_tab1.SetWindowPos(NULL, 5, 25, rect.Width() - 10, rect.Height() - 30, SWP_SHOWWINDOW | SWP_NOZORDER);
 	this->m_pwnShow = &this->m_tab1;
 
@@ -173,7 +173,7 @@ HCURSOR CdRAST3eDlg::OnQueryDragIcon()
 CEdit* pEdit;
 void CdRAST3eDlg::OnBnClickedButtonConnect()
 {
-	pEdit = (CEdit*)GetDlgItem(IDC_EDIT1);
+	pEdit = (CEdit*)GetDlgItem(IDC_EDIT_Log);
 	uiMain::getInstance().setLogEdit(pEdit);
 	uiMain::getInstance().unit_connect();
 }

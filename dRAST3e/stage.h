@@ -3,18 +3,17 @@
 #include "Singleton.h"
 #include "TCP_subject.h"
 
-class unit_adp : public Singleton<unit_adp>, public Observer<TCPSubject>
+class unit_stage : public Singleton<unit_stage>, public Observer<TCPSubject>
 {
 public:
 	void thread_connect(int port)
 	{
 		TCPSubject::getInstance().attach(*this);
 		port_ = port;
-
 		auto th_connect = std::thread([&]() {
 
 			boost::asio::io_context io_context;
-			sv = new server(io_context, port_, "adp");
+			sv = new server(io_context, port_, "stage");
 			io_context.run();
 
 			});
@@ -26,11 +25,12 @@ public:
 	{
 		std::string message = subject->getMessage();
 		int rx_message = message.find("rx");
-		int moduel_message = message.find("adp");
+		int moduel_message = message.find("stage");
 
 		if (rx_message != -1 && moduel_message != -1)
 			checkMsg(message);
 	}
+
 
 	void checkMsg(std::string& msg)
 	{

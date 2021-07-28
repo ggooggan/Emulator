@@ -7,94 +7,148 @@
 #include <memory>
 #include <utility>
 #include <boost/asio.hpp>
+#include <boost/algorithm/string/replace.hpp>
 #include "TCP_subject.h"
 
 using boost::asio::ip::tcp;
 
 class session
-    : public std::enable_shared_from_this<session>
+	: public std::enable_shared_from_this<session>
 {
 public:
-    session(tcp::socket socket, char* name)
-        : socket_(std::move(socket)), moduleName(name)
-    {
-    }
+	session(tcp::socket socket, char* name)
+		: socket_(std::move(socket)), moduleName(name)
+	{
+	}
 
-    void start()
-    {
-        do_read();
-    }
+	void start()
+	{
+		do_read();
+	}
+
+	void sendMsg(const char* data)
+	{
+		do_write(data);
+	}
 
 private:
-    void do_read()
-    {
-        auto self(shared_from_this());
+	void sendMessage(std::string data, std::string type) {
 
-        socket_.async_read_some(boost::asio::buffer(data_, max_length),
-            [this, self](boost::system::error_code ec, std::size_t length)
-            {
-                if (!ec)
-                {
-                    do_write(length);
-                }
-            });
-    }
+		int length = data.length();
 
-    void do_write(std::size_t length)
-    {
-        std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+		// РќДо
+		if (moduleName == "adp")
+		{
+			TCPSubject::getInstance().sendMessage("[adp, " + type + "] " + data.substr(0, length));
+		}
+		else if (moduleName == "gripper")
+		{
+			TCPSubject::getInstance().sendMessage("[gripper, " + type + "] " + data.substr(0, length));
+		}
+		else if (moduleName == "stage")
+		{
+			TCPSubject::getInstance().sendMessage("[stage, " + type + "] " + data.substr(0, length));
+		}
+		else if (moduleName == "temperature")
+		{
+			TCPSubject::getInstance().sendMessage("[temperature, " + type + "] " + data.substr(0, length));
+		}
+		else if (moduleName == "io")
+		{
+			TCPSubject::getInstance().sendMessage("[io, " + type + "] " + data.substr(0, length));
+		}
+		
+	}
 
-        auto self(shared_from_this());
+	void do_read()
+	{
+		auto self(shared_from_this());
 
-        if (moduleName == "adp")
-        {
-            TCPSubject::getInstance().sendMessage("adp_message");
-        }
-        else
-        {
-            TCPSubject::getInstance().sendMessage("no");
-        }
+		socket_.async_read_some(boost::asio::buffer(data_, max_length),
+			[&, self](boost::system::error_code ec, std::size_t length)
+			{
+				if (!ec)
+				{
+					std::string str(data_);
 
-        
-        data_[0] = 'H';
-        boost::asio::async_write(socket_, boost::asio::buffer(data_, length),
-            [this, self](boost::system::error_code ec, std::size_t /*length*/)
-            {
-                if (!ec)
-                {
-                    do_read();
-                }
-            });
-    }
+					int aa = str.find("\r");
+					std::string rx = str.substr(0, aa);
 
-    tcp::socket socket_;
-    enum { max_length = 1024 };
-    char data_[max_length];
-    char* moduleName = "";
+					sendMessage(rx, "rx");
+					//do_write(data_);
+				}
+				else
+				{
+
+				}
+			});
+	}
+
+	void do_write(const char* data)
+	{
+		//std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+
+		std::string str(data);
+		txMsg = str;
+		str += "\r\n";
+
+		auto self(shared_from_this());
+		boost::asio::async_write(socket_, boost::asio::buffer(str.c_str(), str.length()),
+			[&](boost::system::error_code ec, std::size_t /*length*/)
+			{
+				if (!ec)
+				{
+					do_read();
+					sendMessage(txMsg, "tx");
+				}
+			});
+
+
+
+	}
+
+	tcp::socket socket_;
+	enum { max_length = 1024 };
+	char data_[max_length];
+	std::string txMsg = "";
+	std::string rxMsg = "";
+
+	char* moduleName = nullptr;
 };
 
 class server
 {
 public:
-    server(boost::asio::io_context& io_context, short port, char* name)
-        : acceptor_(io_context, tcp::endpoint(tcp::v4(), port)), moduleName(name)
-    {
-        accept();
-    }
+	server(boost::asio::io_context& io_context, short port, char* name)
+		: acceptor_(io_context, tcp::endpoint(tcp::v4(), port)), moduleName(name)
+	{
+		accept();
+	}
 
+	void sendMsg(const char* data)
+	{
+		test->sendMsg(data);
+	}
 private:
-    void accept()
-    {
-        acceptor_.async_accept(
-            [this](boost::system::error_code ec, tcp::socket socket)
-            {
-                if (!ec)
-                {
-                    std::make_shared<session>(std::move(socket), moduleName)->start();
-                }
-            });
-    }
-
-    tcp::acceptor acceptor_;
-    char* moduleName = "";
+	void accept()
+	{
+		acceptor_.async_accept(
+			[&](boost::system::error_code ec, tcp::socket socket)
+			{
+				if (!ec)
+				{
+					test = std::make_shared<session>(std::move(socket), moduleName);
+					test->start();
+					
+					TCPSubject::getInstance().sendMessage("[connect] " + std::string(moduleName));
+				}
+				else
+				{
+					TCPSubject::getInstance().sendMessage("[connect,fail] " + std::string(moduleName));
+				}
+			});
+	}
+	std::shared_ptr<session> test;
+	tcp::acceptor acceptor_;
+	char* moduleName = "";
 };
