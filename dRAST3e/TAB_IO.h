@@ -23,4 +23,12 @@ protected:
 public:
 	afx_msg void OnBnClickedCheckIo1();
 	afx_msg void OnBnClickedCheckIo2();
+	afx_msg void OnBnClickedCheckIo3();
+	afx_msg void OnBnClickedCheckIo4();
+	afx_msg void OnBnClickedCheckIo5();
+	afx_msg void OnBnClickedCheckIo6();
+	afx_msg void OnBnClickedCheckIo7();
+	afx_msg void OnBnClickedCheckIo8();
+	afx_msg void OnBnClickedCheckIo9();
+	afx_msg void OnBnClickedCheckIo10();
 };
