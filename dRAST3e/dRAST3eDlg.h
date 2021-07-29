@@ -4,7 +4,8 @@
 
 #pragma once
 #include "afxcmn.h"
-#include "TAB1.h"
+#include "TAB_TEMPERATURE.h"
+#include "TAB_IO.h"
 
 // CdRAST3eDlg 대화 상자
 class CdRAST3eDlg : public CDialogEx
@@ -13,9 +14,9 @@ class CdRAST3eDlg : public CDialogEx
 public:
 	CdRAST3eDlg(CWnd* pParent = nullptr);	// 표준 생성자입니다.
 
-	TAB1 m_tab1;
+	TAB_TEMPERATURE m_tab_temperature;
+	TAB_IO m_tab_io;
 	CWnd* m_pwnShow;
-
 
 // 대화 상자 데이터입니다.
 #ifdef AFX_DESIGN_TIME
@@ -40,4 +41,6 @@ public:
 	afx_msg void OnBnClickedButtonConnect();
 	afx_msg void OnBnClickedOk();
 	CTabCtrl m_mainTap;
+	//afx_msg void OnTcnSelchangeTabMain(NMHDR* pNMHDR, LRESULT* pResult);
+	afx_msg void OnTcnSelchangeTabMain(NMHDR* pNMHDR, LRESULT* pResult);
 };

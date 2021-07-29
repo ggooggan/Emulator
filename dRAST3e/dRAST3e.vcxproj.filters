@@ -69,9 +69,6 @@
     <ClInclude Include="uiMain.h">
       <Filter>소스 파일\ui</Filter>
     </ClInclude>
-    <ClInclude Include="TAB1.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="stage.h">
       <Filter>소스 파일\unit</Filter>
     </ClInclude>
@@ -80,6 +77,12 @@
     </ClInclude>
     <ClInclude Include="temperature.h">
       <Filter>소스 파일\unit</Filter>
+    </ClInclude>
+    <ClInclude Include="TAB_TEMPERATURE.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="TAB_IO.h">
+      <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -98,7 +101,10 @@
     <ClCompile Include="TCP_subject.cpp">
       <Filter>소스 파일\pattern</Filter>
     </ClCompile>
-    <ClCompile Include="TAB1.cpp">
+    <ClCompile Include="TAB_TEMPERATURE.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="TAB_IO.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>

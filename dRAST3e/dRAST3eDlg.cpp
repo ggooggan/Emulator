@@ -31,9 +31,11 @@ protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV 지원입니다.
 
 // 구현입니다.
-protected:
-	DECLARE_MESSAGE_MAP()
-
+//protected:
+//	DECLARE_MESSAGE_MAP()
+//
+//public:
+//	afx_msg void OnTcnSelchangeTabMain(NMHDR* pNMHDR, LRESULT* pResult);
 };
 
 CAboutDlg::CAboutDlg() : CDialogEx(IDD_ABOUTBOX)
@@ -45,8 +47,9 @@ void CAboutDlg::DoDataExchange(CDataExchange* pDX)
 	CDialogEx::DoDataExchange(pDX);
 }
 
-BEGIN_MESSAGE_MAP(CAboutDlg, CDialogEx)
-END_MESSAGE_MAP()
+//BEGIN_MESSAGE_MAP(CAboutDlg, CDialogEx)
+//	ON_NOTIFY(TCN_SELCHANGE, IDC_TAB_Main, &CAboutDlg::OnTcnSelchangeTabMain)
+//END_MESSAGE_MAP()
 
 
 // CdRAST3eDlg 대화 상자
@@ -71,6 +74,7 @@ BEGIN_MESSAGE_MAP(CdRAST3eDlg, CDialogEx)
 	ON_WM_QUERYDRAGICON()
 	ON_BN_CLICKED(IDC_BUTTON_Connect, &CdRAST3eDlg::OnBnClickedButtonConnect)
 	ON_BN_CLICKED(IDOK, &CdRAST3eDlg::OnBnClickedOk)
+	ON_NOTIFY(TCN_SELCHANGE, IDC_TAB_Main, &CdRAST3eDlg::OnTcnSelchangeTabMain)
 END_MESSAGE_MAP()
 
 
@@ -107,15 +111,26 @@ BOOL CdRAST3eDlg::OnInitDialog()
 
 	// TODO: 여기에 추가 초기화 작업을 추가합니다.
 
+	// https://3001ssw.tistory.com/14
+	this->m_mainTap.SetCurSel(0);
+
+
 	CString strTab = _T("");
 	strTab.Format(_T("IO"));
-	this->m_mainTap.InsertItem(0, strTab, 0);
+	this->m_mainTap.InsertItem(0, strTab);
+	strTab.Format(_T("TEMP"));
+	this->m_mainTap.InsertItem(1, strTab);
 
 	CRect rect;
 	this->m_mainTap.GetClientRect(&rect);
-	this->m_tab1.Create(IDD_DIALOG_IO, &this->m_mainTap);
-	this->m_tab1.SetWindowPos(NULL, 5, 25, rect.Width() - 10, rect.Height() - 30, SWP_SHOWWINDOW | SWP_NOZORDER);
-	this->m_pwnShow = &this->m_tab1;
+
+	this->m_tab_io.Create(IDD_DIALOG_IO, &this->m_mainTap);
+	this->m_tab_io.SetWindowPos(NULL, 5, 25, rect.Width() - 10, rect.Height() - 30, SWP_SHOWWINDOW | SWP_NOZORDER);
+	this->m_tab_io.ShowWindow(SW_SHOW);
+
+	this->m_tab_temperature.Create(IDD_DIALOG_TEMP, &this->m_mainTap);
+	this->m_tab_temperature.SetWindowPos(NULL, 5, 25, rect.Width() - 10, rect.Height() - 30, SWP_SHOWWINDOW | SWP_NOZORDER);
+	this->m_tab_temperature.ShowWindow(SW_HIDE);
 
 	return TRUE;  // 포커스를 컨트롤에 설정하지 않으면 TRUE를 반환합니다.
 }
@@ -182,4 +197,31 @@ void CdRAST3eDlg::OnBnClickedOk()
 {
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
 	CDialogEx::OnOK();
+}
+
+void CdRAST3eDlg::OnTcnSelchangeTabMain(NMHDR* pNMHDR, LRESULT* pResult)
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	if (IDC_TAB_Main == pNMHDR->idFrom)
+	{
+		int iSelect = this->m_mainTap.GetCurSel();
+
+		switch (iSelect)
+		{
+		case 0:
+			this->m_tab_io.ShowWindow(SW_SHOW);
+			this->m_tab_temperature.ShowWindow(SW_HIDE);
+
+			break;
+
+		case 1:
+			this->m_tab_io.ShowWindow(SW_HIDE);
+			this->m_tab_temperature.ShowWindow(SW_SHOW);
+			break;
+
+		default:
+			break;
+		}
+	}
+	*pResult = 0;
 }
