@@ -1,4 +1,6 @@
 #pragma once
+#include <vector>
+#include <boost/lexical_cast.hpp>
 #include "tcp.h"
 #include "Singleton.h"
 #include "TCP_subject.h"
@@ -6,9 +8,9 @@
 class temperature_command : public Singleton<temperature_command>
 {
 public:
-	void setValue(std::string cmd)
+	void setValue(const std::vector<std::string> get_value)
 	{
-		getValue = cmd;
+		vector_value = get_value;
 	}
 
 	std::string check_Command(const std::string cmd)
@@ -17,7 +19,23 @@ public:
 		// rtemp  100
 		if (cmd == "RTEMP 100")
 		{
-			result = "RTEMP 100," + getValue;
+			result = "RTEMP 100 ";
+
+			for (const auto &v : vector_value)
+			{
+				result += "," + v;
+			}
+		}
+		else if (cmd.find("RTEMP") != -1)
+		{
+			std::string getmsg;
+			int index_slot = cmd.find(" ");
+			getmsg = cmd.substr(index_slot);
+			int nSlot = boost::lexical_cast<int>(getmsg);
+			std::string value = vector_value[nSlot];
+
+			result = "RTEMP " + getmsg + "," + value;
+
 		}
 		else
 		{
@@ -29,7 +47,7 @@ public:
 	}
 
 private:
-	std::string getValue = "0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1.0,1.1,1.2"; // default
+	std::vector<std::string> vector_value;
 };
 
 class unit_temperature : public Singleton<unit_temperature>, public Observer<TCPSubject>

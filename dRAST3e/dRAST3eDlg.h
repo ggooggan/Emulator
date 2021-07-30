@@ -43,4 +43,7 @@ public:
 	CTabCtrl m_mainTap;
 	//afx_msg void OnTcnSelchangeTabMain(NMHDR* pNMHDR, LRESULT* pResult);
 	afx_msg void OnTcnSelchangeTabMain(NMHDR* pNMHDR, LRESULT* pResult);
+	afx_msg void OnBnClickedButtonTest();
+	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
+	COLORREF color_check_gripper = RGB(200, 0, 0);
 };

@@ -31,11 +31,6 @@ protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV 지원입니다.
 
 // 구현입니다.
-//protected:
-//	DECLARE_MESSAGE_MAP()
-//
-//public:
-//	afx_msg void OnTcnSelchangeTabMain(NMHDR* pNMHDR, LRESULT* pResult);
 };
 
 CAboutDlg::CAboutDlg() : CDialogEx(IDD_ABOUTBOX)
@@ -46,11 +41,6 @@ void CAboutDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialogEx::DoDataExchange(pDX);
 }
-
-//BEGIN_MESSAGE_MAP(CAboutDlg, CDialogEx)
-//	ON_NOTIFY(TCN_SELCHANGE, IDC_TAB_Main, &CAboutDlg::OnTcnSelchangeTabMain)
-//END_MESSAGE_MAP()
-
 
 // CdRAST3eDlg 대화 상자
 
@@ -75,6 +65,8 @@ BEGIN_MESSAGE_MAP(CdRAST3eDlg, CDialogEx)
 	ON_BN_CLICKED(IDC_BUTTON_Connect, &CdRAST3eDlg::OnBnClickedButtonConnect)
 	ON_BN_CLICKED(IDOK, &CdRAST3eDlg::OnBnClickedOk)
 	ON_NOTIFY(TCN_SELCHANGE, IDC_TAB_Main, &CdRAST3eDlg::OnTcnSelchangeTabMain)
+	ON_BN_CLICKED(IDC_BUTTON_TEST, &CdRAST3eDlg::OnBnClickedButtonTest)
+	ON_WM_CTLCOLOR()
 END_MESSAGE_MAP()
 
 
@@ -224,4 +216,35 @@ void CdRAST3eDlg::OnTcnSelchangeTabMain(NMHDR* pNMHDR, LRESULT* pResult)
 		}
 	}
 	*pResult = 0;
+}
+
+
+void CdRAST3eDlg::OnBnClickedButtonTest()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	color_check_gripper = RGB(0, 200, 0);
+	GetDlgItem(IDC_STATIC_GRIPPER)->Invalidate();
+}
+
+
+HBRUSH CdRAST3eDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
+{
+	HBRUSH hbr = CDialogEx::OnCtlColor(pDC, pWnd, nCtlColor);
+
+	if (pWnd->GetDlgCtrlID() == IDC_STATIC_GRIPPER) {
+		// 첫번째 스태틱 컨트롤을 위해 OnCtlColor 함수가 호출된 경우.
+		// 스태틱 컨트롤의 텍스트 색상을 설정한다.
+		pDC->SetBkColor(color_check_gripper);
+	}
+	//else if (pWnd->GetDlgCtrlID() == IDC_STATIC_2) {
+	//	// 두번째 스태틱 컨트롤을 위해 OnCtlColor 함수가 호출된 경우.
+	//	// 배경을 투명하게 한다.
+	//	pDC->SetBkMode(TRANSPARENT);
+	//	// 스태틱 컨트롤의 텍스트 색상을 설정한다.
+	//	pDC->SetTextColor(m_static_2_color);
+	//	// 스태틱 컨트롤이 배경 색상으로 사용할 블러쉬를 반환한다.
+	//	return m_static_2_brush;
+	//}
+
+	return hbr;
 }

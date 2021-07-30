@@ -31,4 +31,6 @@ public:
 	afx_msg void OnBnClickedCheckIo8();
 	afx_msg void OnBnClickedCheckIo9();
 	afx_msg void OnBnClickedCheckIo10();
+	afx_msg void OnBnClickedButtonBarcodeaply();
+	afx_msg void OnBnClickedCheckIo20();
 };
