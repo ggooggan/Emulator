@@ -21,7 +21,7 @@ public:
 		{
 			result = "RTEMP 100 ";
 
-			for (const auto &v : vector_value)
+			for (const auto& v : vector_value)
 			{
 				result += "," + v;
 			}
@@ -29,9 +29,9 @@ public:
 		else if (cmd.find("RTEMP") != -1)
 		{
 			std::string getmsg;
-			int index_slot = cmd.find(" ");
+			int index_slot = cmd.find(" ") + 1;
 			getmsg = cmd.substr(index_slot);
-			int nSlot = boost::lexical_cast<int>(getmsg);
+			int nSlot = boost::lexical_cast<int>(getmsg) - 1;
 			std::string value = vector_value[nSlot];
 
 			result = "RTEMP " + getmsg + "," + value;
@@ -85,7 +85,7 @@ public:
 		std::string getmsg = msg;
 		int aa = msg.find("]") + 2;
 		getmsg = msg.substr(aa);
-		
+
 		getmsg = temperature_command::getInstance().check_Command(getmsg);
 
 		sv->sendMsg(getmsg.c_str());
