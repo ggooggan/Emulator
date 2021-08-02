@@ -6,9 +6,10 @@
 #include "afxcmn.h"
 #include "TAB_TEMPERATURE.h"
 #include "TAB_IO.h"
+#include "GRIPPER_subject.h"
 
 // CdRAST3eDlg 대화 상자
-class CdRAST3eDlg : public CDialogEx
+class CdRAST3eDlg : public CDialogEx, public Observer<GRIPPERSubject>
 {
 // 생성입니다.
 public:
@@ -46,4 +47,8 @@ public:
 	afx_msg void OnBnClickedButtonTest();
 	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
 	COLORREF color_check_gripper = RGB(200, 0, 0);
+	COLORREF get_Panel = RGB(200, 0, 0);
+	COLORREF put_Panel = RGB(0, 200, 0);
+
+	virtual void update(GRIPPERSubject* subject);
 };

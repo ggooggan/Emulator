@@ -29,8 +29,11 @@
 #define IDC_BUTTON_TEMPAPLY             1018
 #define IDC_BUTTON_TEST                 1021
 #define IDC_STATIC_GRIPPER              1022
-#define IDC_EDIT_BAROUT01          1037
-#define IDC_EDIT_BAROUT02       1038
+#define IDC_STATIC_DISPENSING           1023
+#define IDC_STATIC_COOLINGDISPENSNG     1024
+#define IDC_STATIC_TIPALIGNER           1025
+#define IDC_EDIT_BAROUT01               1037
+#define IDC_EDIT_BAROUT02               1038
 #define IDC_BUTTON_BarcodeAply          1040
 #define IDC_CHECK_IO_1                  1201
 #define IDC_CHECK_IO_2                  1202

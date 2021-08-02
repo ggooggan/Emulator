@@ -3,6 +3,30 @@
 #include "Singleton.h"
 #include "TCP_subject.h"
 
+class stage_command : public Singleton<stage_command>
+{
+public:
+
+	std::string check_Command(const std::string cmd)
+	{
+		std::string result = "";
+
+		if (cmd == "MPS OPTIC")
+		{
+			result = "MPS OPTIC 0,0,0,0";
+		}
+		else
+		{
+			result = cmd;
+		}
+
+
+		result += ",1";
+		return result;
+	}
+
+};
+
 class unit_stage : public Singleton<unit_stage>, public Observer<TCPSubject>
 {
 public:
@@ -31,16 +55,17 @@ public:
 			checkMsg(message);
 	}
 
-
 	void checkMsg(std::string& msg)
 	{
 		// message check;
 		std::string getmsg = msg;
 		int aa = msg.find("]") + 2;
 		getmsg = msg.substr(aa);
-		getmsg += ",1";
-		const char* c = getmsg.c_str();
-		sv->sendMsg(c);
+
+		getmsg = stage_command::getInstance().check_Command(getmsg);
+
+		if (getmsg.length() > 0)
+			sv->sendMsg(getmsg.c_str());
 	}
 private:
 	server* sv = nullptr;

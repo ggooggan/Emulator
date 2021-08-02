@@ -201,6 +201,7 @@
     <ClInclude Include="dRAST3e.h" />
     <ClInclude Include="dRAST3eDlg.h" />
     <ClInclude Include="framework.h" />
+    <ClInclude Include="GRIPPER_subject.h" />
     <ClInclude Include="io.h" />
     <ClInclude Include="Observer.h" />
     <ClInclude Include="pch.h" />

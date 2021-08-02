@@ -84,6 +84,9 @@
     <ClInclude Include="TAB_IO.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="GRIPPER_subject.h">
+      <Filter>소스 파일\pattern</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dRAST3e.cpp">

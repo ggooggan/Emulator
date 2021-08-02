@@ -103,6 +103,8 @@ BOOL CdRAST3eDlg::OnInitDialog()
 
 	// TODO: 여기에 추가 초기화 작업을 추가합니다.
 
+	GRIPPERSubject::getInstance().attach(*this);
+
 	// https://3001ssw.tistory.com/14
 	this->m_mainTap.SetCurSel(0);
 
@@ -222,8 +224,11 @@ void CdRAST3eDlg::OnTcnSelchangeTabMain(NMHDR* pNMHDR, LRESULT* pResult)
 void CdRAST3eDlg::OnBnClickedButtonTest()
 {
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
-	color_check_gripper = RGB(0, 200, 0);
+	color_check_gripper = RGB(200, 0, 0);
+	GetDlgItem(IDC_STATIC_DISPENSING)->Invalidate();
+	GetDlgItem(IDC_STATIC_COOLINGDISPENSNG)->Invalidate();
 	GetDlgItem(IDC_STATIC_GRIPPER)->Invalidate();
+	GetDlgItem(IDC_STATIC_TIPALIGNER)->Invalidate();
 }
 
 
@@ -236,15 +241,34 @@ HBRUSH CdRAST3eDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 		// 스태틱 컨트롤의 텍스트 색상을 설정한다.
 		pDC->SetBkColor(color_check_gripper);
 	}
-	//else if (pWnd->GetDlgCtrlID() == IDC_STATIC_2) {
-	//	// 두번째 스태틱 컨트롤을 위해 OnCtlColor 함수가 호출된 경우.
-	//	// 배경을 투명하게 한다.
-	//	pDC->SetBkMode(TRANSPARENT);
-	//	// 스태틱 컨트롤의 텍스트 색상을 설정한다.
-	//	pDC->SetTextColor(m_static_2_color);
-	//	// 스태틱 컨트롤이 배경 색상으로 사용할 블러쉬를 반환한다.
-	//	return m_static_2_brush;
-	//}
+	else if (pWnd->GetDlgCtrlID() == IDC_STATIC_DISPENSING) {
+		pDC->SetBkColor(color_check_gripper);
+	}
+	else if (pWnd->GetDlgCtrlID() == IDC_STATIC_COOLINGDISPENSNG) {
+		pDC->SetBkColor(color_check_gripper);
+	}
+	else if (pWnd->GetDlgCtrlID() == IDC_STATIC_TIPALIGNER) {
+		pDC->SetBkColor(color_check_gripper);
+	}
 
 	return hbr;
+}
+
+
+void CdRAST3eDlg::update(GRIPPERSubject* subject)
+{
+	std::string message = subject->getMessage();
+
+	int index_space = message.find("@");
+	std::string command = message.substr(0, index_space);
+	std::string command_value = message.substr(index_space + 1);
+
+	if (command_value == "ON")		color_check_gripper = RGB(0, 200, 0);
+	else 		color_check_gripper = RGB(200, 0, 0);
+
+	if (command == "DISPENSING")GetDlgItem(IDC_STATIC_DISPENSING)->Invalidate();
+	else if (command == "COOLING")GetDlgItem(IDC_STATIC_COOLINGDISPENSNG)->Invalidate();
+	else if (command == "GRIPPER") GetDlgItem(IDC_STATIC_GRIPPER)->Invalidate();
+
+	std::this_thread::sleep_for(std::chrono::milliseconds(10));
 }
