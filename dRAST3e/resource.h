@@ -32,6 +32,7 @@
 #define IDC_STATIC_DISPENSING           1023
 #define IDC_STATIC_COOLINGDISPENSNG     1024
 #define IDC_STATIC_TIPALIGNER           1025
+#define IDC_STATIC_STAGE                1026
 #define IDC_EDIT_BAROUT01               1037
 #define IDC_EDIT_BAROUT02               1038
 #define IDC_BUTTON_BarcodeAply          1040

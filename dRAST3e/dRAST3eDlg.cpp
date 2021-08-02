@@ -229,6 +229,8 @@ void CdRAST3eDlg::OnBnClickedButtonTest()
 	GetDlgItem(IDC_STATIC_COOLINGDISPENSNG)->Invalidate();
 	GetDlgItem(IDC_STATIC_GRIPPER)->Invalidate();
 	GetDlgItem(IDC_STATIC_TIPALIGNER)->Invalidate();
+	GetDlgItem(IDC_STATIC_STAGE)->Invalidate();
+	
 }
 
 
@@ -250,6 +252,9 @@ HBRUSH CdRAST3eDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 	else if (pWnd->GetDlgCtrlID() == IDC_STATIC_TIPALIGNER) {
 		pDC->SetBkColor(color_check_gripper);
 	}
+	else if (pWnd->GetDlgCtrlID() == IDC_STATIC_STAGE) {
+		pDC->SetBkColor(color_check_gripper);
+	}
 
 	return hbr;
 }
@@ -269,6 +274,7 @@ void CdRAST3eDlg::update(GRIPPERSubject* subject)
 	if (command == "DISPENSING")GetDlgItem(IDC_STATIC_DISPENSING)->Invalidate();
 	else if (command == "COOLING")GetDlgItem(IDC_STATIC_COOLINGDISPENSNG)->Invalidate();
 	else if (command == "GRIPPER") GetDlgItem(IDC_STATIC_GRIPPER)->Invalidate();
+	else if (command == "STAGE") GetDlgItem(IDC_STATIC_STAGE)->Invalidate();
 
 	std::this_thread::sleep_for(std::chrono::milliseconds(10));
 }

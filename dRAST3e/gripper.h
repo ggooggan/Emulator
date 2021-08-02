@@ -34,7 +34,11 @@ public:
 				GRIPPERSubject::getInstance().sendMessage("GRIPPER@ON");
 			}
 			else if (command_value[0] == '2')GRIPPERSubject::getInstance().sendMessage("GRIPPER@ON");
-			else if (command_value[0] == '3')GRIPPERSubject::getInstance().sendMessage("GRIPPER@ON");
+			else if (command_value[0] == '3')
+			{
+				GRIPPERSubject::getInstance().sendMessage("GRIPPER@ON");
+				GRIPPERSubject::getInstance().sendMessage("STAGE@OFF");
+			}
 			else if (command_value[0] == '4')GRIPPERSubject::getInstance().sendMessage("GRIPPER@ON");
 		}
 		else if (command == "PUT")
@@ -51,7 +55,11 @@ public:
 				GRIPPERSubject::getInstance().sendMessage("GRIPPER@OFF");
 			}
 			else if (command_value[0] == '2')GRIPPERSubject::getInstance().sendMessage("GRIPPER@OFF");
-			else if (command_value[0] == '3')GRIPPERSubject::getInstance().sendMessage("GRIPPER@OFF");
+			else if (command_value[0] == '3')
+			{
+				GRIPPERSubject::getInstance().sendMessage("GRIPPER@OFF");
+				GRIPPERSubject::getInstance().sendMessage("STAGE@ON");
+			}
 			else if (command_value[0] == '4')GRIPPERSubject::getInstance().sendMessage("GRIPPER@OFF");
 		}
 
