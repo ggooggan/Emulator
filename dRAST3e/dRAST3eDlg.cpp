@@ -262,6 +262,8 @@ HBRUSH CdRAST3eDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 
 void CdRAST3eDlg::update(GRIPPERSubject* subject)
 {
+	std::this_thread::sleep_for(std::chrono::milliseconds(50)); // 바로 변경 하면, 보이지 않음...
+
 	std::string message = subject->getMessage();
 
 	int index_space = message.find("@");
@@ -276,5 +278,5 @@ void CdRAST3eDlg::update(GRIPPERSubject* subject)
 	else if (command == "GRIPPER") GetDlgItem(IDC_STATIC_GRIPPER)->Invalidate();
 	else if (command == "STAGE") GetDlgItem(IDC_STATIC_STAGE)->Invalidate();
 
-	std::this_thread::sleep_for(std::chrono::milliseconds(10));
+	std::this_thread::sleep_for(std::chrono::milliseconds(50));
 }

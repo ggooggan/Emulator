@@ -27,7 +27,7 @@ void TAB_IO::DoDataExchange(CDataExchange* pDX)
 
 	/* Default */
 	CString barout_1, barout_2;
-	barout_1 = "SAMPLE";
+	barout_1 = "PANEL";
 	barout_2 = "SAMPLE,CARTRIDGE";
 
 	GetDlgItem(IDC_EDIT_BAROUT01)->SetWindowTextW(barout_1);
