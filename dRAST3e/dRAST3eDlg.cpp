@@ -56,7 +56,7 @@ void CdRAST3eDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialogEx::DoDataExchange(pDX);
 	DDX_Control(pDX, IDC_TAB1, m_mainTap);
-	DDX_Control(pDX, IDC_BUTTON_TCP_DELAY, mButton_TCPDELAY);
+	//DDX_Control(pDX, IDC_BUTTON_TCP_DELAY, mButton_TCPDELAY);
 }
 
 BEGIN_MESSAGE_MAP(CdRAST3eDlg, CDialogEx)
