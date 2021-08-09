@@ -89,7 +89,7 @@ public:
 		int aa = msg.find("]") + 2;
 		getmsg = msg.substr(aa);
 
-		
+
 		/* return message */
 		getmsg = adp_command::getInstance().check_Command(getmsg);
 
@@ -97,15 +97,11 @@ public:
 		if (getmsg.length() > 0)
 			sv->sendMsg(getmsg.c_str());
 
+	}
 
-		//// message check;
-		//std::string getmsg = msg;
-		//int aa = msg.find("]") + 2;
-		//getmsg = msg.substr(aa);
-
-		//getmsg += ",1";
-		//const char* c = getmsg.c_str();
-		//sv->sendMsg(c);
+	void tcp_delay(int second)
+	{
+		sv->delay_TCP(second);
 	}
 
 private:

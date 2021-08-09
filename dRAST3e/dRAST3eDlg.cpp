@@ -56,6 +56,7 @@ void CdRAST3eDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialogEx::DoDataExchange(pDX);
 	DDX_Control(pDX, IDC_TAB1, m_mainTap);
+	DDX_Control(pDX, IDC_BUTTON_TCP_DELAY, mButton_TCPDELAY);
 }
 
 BEGIN_MESSAGE_MAP(CdRAST3eDlg, CDialogEx)
@@ -66,6 +67,7 @@ BEGIN_MESSAGE_MAP(CdRAST3eDlg, CDialogEx)
 	ON_BN_CLICKED(IDOK, &CdRAST3eDlg::OnBnClickedOk)
 	ON_NOTIFY(TCN_SELCHANGE, IDC_TAB_Main, &CdRAST3eDlg::OnTcnSelchangeTabMain)
 	ON_BN_CLICKED(IDC_BUTTON_TEST, &CdRAST3eDlg::OnBnClickedButtonTest)
+	ON_BN_CLICKED(IDC_BUTTON_TCP_DELAY, &CdRAST3eDlg::OnBnClickedButtonTCPDELAY)
 	ON_WM_CTLCOLOR()
 END_MESSAGE_MAP()
 
@@ -126,6 +128,10 @@ BOOL CdRAST3eDlg::OnInitDialog()
 	this->m_tab_temperature.Create(IDD_DIALOG_TEMP, &this->m_mainTap);
 	this->m_tab_temperature.SetWindowPos(NULL, 5, 25, rect.Width() - 10, rect.Height() - 30, SWP_SHOWWINDOW | SWP_NOZORDER);
 	this->m_tab_temperature.ShowWindow(SW_HIDE);
+
+	CString init_Delay;
+	init_Delay = "1";
+	GetDlgItem(IDC_EDIT_TCP_DELAY)->SetWindowTextW(init_Delay);
 
 	return TRUE;  // 포커스를 컨트롤에 설정하지 않으면 TRUE를 반환합니다.
 }
@@ -236,6 +242,20 @@ void CdRAST3eDlg::OnBnClickedButtonTest()
 
 	
 }
+void CdRAST3eDlg::OnBnClickedButtonTCPDELAY()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+
+	CString value;
+	GetDlgItem(IDC_EDIT_TCP_DELAY)->GetWindowTextW(value);
+
+	int nTestNum;
+	nTestNum = _ttoi(value) * 1000;
+	uiMain::getInstance().tcp_delay(nTestNum);
+
+
+}
+
 
 
 HBRUSH CdRAST3eDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)

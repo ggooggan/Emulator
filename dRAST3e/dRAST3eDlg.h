@@ -51,6 +51,7 @@ public:
 	//afx_msg void OnTcnSelchangeTabMain(NMHDR* pNMHDR, LRESULT* pResult);
 	afx_msg void OnTcnSelchangeTabMain(NMHDR* pNMHDR, LRESULT* pResult);
 	afx_msg void OnBnClickedButtonTest();
+	afx_msg void OnBnClickedButtonTCPDELAY();
 	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
 	COLORREF color_check_gripper = RGB(200, 0, 0);
 	COLORREF get_Panel = RGB(200, 0, 0);
@@ -59,4 +60,5 @@ public:
 	virtual void update(GRIPPERSubject* subject);
 	virtual void update(ADPSubject* subject);
 
+	CButton mButton_TCPDELAY;
 };

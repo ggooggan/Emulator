@@ -67,6 +67,12 @@ public:
 		if (getmsg.length() > 0)
 			sv->sendMsg(getmsg.c_str());
 	}
+
+	void tcp_delay(int second)
+	{
+		sv->delay_TCP(second);
+	}
+
 private:
 	server* sv = nullptr;
 	int port_ = 0;

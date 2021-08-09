@@ -40,6 +40,15 @@ public:
 		edit_Log->SetWindowTextW(copy + "\r\n" + msg);
 		edit_Log->LineScroll(edit_Log->GetLineCount());
 	}
+
+	void tcp_delay(int second)
+	{
+		unit_adp::getInstance().tcp_delay(second);
+		unit_stage::getInstance().tcp_delay(second);
+		unit_temperature::getInstance().tcp_delay(second);
+		unit_io::getInstance().tcp_delay(second);
+		unit_gripper::getInstance().tcp_delay(second);
+	}
 private:
 	CEdit* edit_Log = nullptr;
 

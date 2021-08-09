@@ -57,7 +57,8 @@ public:
 			}
 			else if (command_value[0] == '4')GRIPPERSubject::getInstance().sendMessage("GRIPPER@ON");
 
-			panelCheck_gripper = true;
+			if(command_value != "5,1")
+				panelCheck_gripper = true;
 		}
 		else if (command == "PUT")
 		{
@@ -128,10 +129,17 @@ public:
 		int aa = msg.find("]") + 2;
 		getmsg = msg.substr(aa);
 
-		/* send message */
+		getmsg = gripper_command::getInstance().check_Command(getmsg);
+
 		if (getmsg.length() > 0)
 			sv->sendMsg(getmsg.c_str());
 	}
+
+	void tcp_delay(int second)
+	{
+		sv->delay_TCP(second);
+	}
+
 private:
 	server* sv = nullptr;
 	int port_ = 0;

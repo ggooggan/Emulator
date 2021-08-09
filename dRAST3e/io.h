@@ -4,6 +4,7 @@
 #include "TCP_subject.h"
 #include <vector>
 #include <boost/lexical_cast.hpp>
+#include "gripper.h"
 
 class io_command : public Singleton<io_command>
 {
@@ -27,8 +28,12 @@ public:
 
 		if (command == "BAROUT")
 		{
-			if (command_value == "")
+			if (command_value == "BAROUT")
 				result = "BAROUT " + barout_1;
+			else if (command_value == "0")
+			{
+				// Áß´Ü,
+			}
 			else if (command_value == "2")
 				result = "BAROUT " + barout_2;
 		}
@@ -134,6 +139,12 @@ public:
 		if(getmsg.length() > 0)
 			sv->sendMsg(getmsg.c_str());
 	}
+
+	void tcp_delay(int second)
+	{
+		sv->delay_TCP(second);
+	}
+
 private:
 	server* sv = nullptr;
 	int port_ = 0;
