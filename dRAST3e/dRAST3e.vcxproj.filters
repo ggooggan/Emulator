@@ -87,6 +87,9 @@
     <ClInclude Include="GRIPPER_subject.h">
       <Filter>소스 파일\pattern</Filter>
     </ClInclude>
+    <ClInclude Include="ADP_subject.h">
+      <Filter>소스 파일\pattern</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dRAST3e.cpp">

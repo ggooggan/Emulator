@@ -198,6 +198,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="adp.h" />
+    <ClInclude Include="ADP_subject.h" />
     <ClInclude Include="dRAST3e.h" />
     <ClInclude Include="dRAST3eDlg.h" />
     <ClInclude Include="framework.h" />

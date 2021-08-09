@@ -104,6 +104,7 @@ BOOL CdRAST3eDlg::OnInitDialog()
 	// TODO: 여기에 추가 초기화 작업을 추가합니다.
 
 	GRIPPERSubject::getInstance().attach(*this);
+	ADPSubject::getInstance().attach(*this);
 
 	// https://3001ssw.tistory.com/14
 	this->m_mainTap.SetCurSel(0);
@@ -230,6 +231,9 @@ void CdRAST3eDlg::OnBnClickedButtonTest()
 	GetDlgItem(IDC_STATIC_GRIPPER)->Invalidate();
 	GetDlgItem(IDC_STATIC_TIPALIGNER)->Invalidate();
 	GetDlgItem(IDC_STATIC_STAGE)->Invalidate();
+
+	gripper_command::getInstance().panelCheck_init(); // 상태 초기화
+
 	
 }
 
@@ -277,6 +281,24 @@ void CdRAST3eDlg::update(GRIPPERSubject* subject)
 	else if (command == "COOLING")GetDlgItem(IDC_STATIC_COOLINGDISPENSNG)->Invalidate();
 	else if (command == "GRIPPER") GetDlgItem(IDC_STATIC_GRIPPER)->Invalidate();
 	else if (command == "STAGE") GetDlgItem(IDC_STATIC_STAGE)->Invalidate();
+
+	std::this_thread::sleep_for(std::chrono::milliseconds(50));
+}
+
+void CdRAST3eDlg::update(ADPSubject* subject)
+{
+	std::this_thread::sleep_for(std::chrono::milliseconds(50)); // 바로 변경 하면, 보이지 않음...
+
+	std::string message = subject->getMessage();
+
+	int index_space = message.find("@");
+	std::string command = message.substr(0, index_space);
+	std::string command_value = message.substr(index_space + 1);
+
+	if (command_value == "ON")		color_check_gripper = RGB(0, 200, 0);
+	else 		color_check_gripper = RGB(200, 0, 0);
+
+	if (command == "ALIGNER")GetDlgItem(IDC_STATIC_TIPALIGNER)->Invalidate();
 
 	std::this_thread::sleep_for(std::chrono::milliseconds(50));
 }

@@ -7,9 +7,15 @@
 #include "TAB_TEMPERATURE.h"
 #include "TAB_IO.h"
 #include "GRIPPER_subject.h"
+#include "ADP_subject.h"
+#include "adp.h"
+#include "gripper.h"
+#include "io.h"
+#include "stage.h"
+#include "temperature.h"
 
 // CdRAST3eDlg 대화 상자
-class CdRAST3eDlg : public CDialogEx, public Observer<GRIPPERSubject>
+class CdRAST3eDlg : public CDialogEx, public Observer<GRIPPERSubject>, public Observer<ADPSubject>
 {
 // 생성입니다.
 public:
@@ -51,4 +57,6 @@ public:
 	COLORREF put_Panel = RGB(0, 200, 0);
 
 	virtual void update(GRIPPERSubject* subject);
+	virtual void update(ADPSubject* subject);
+
 };

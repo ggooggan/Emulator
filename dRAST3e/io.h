@@ -19,15 +19,20 @@ public:
 	{
 		std::string result = "";
 
-		if (cmd == "BAROUT")
+		result = cmd;
+
+		int index_space = cmd.find(" ");
+		std::string command = cmd.substr(0, index_space);
+		std::string command_value = cmd.substr(index_space + 1);
+
+		if (command == "BAROUT")
 		{
-			result = "BAROUT " + barout_1;
+			if (command_value == "")
+				result = "BAROUT " + barout_1;
+			else if (command_value == "2")
+				result = "BAROUT " + barout_2;
 		}
-		else if (cmd == "BAROUT 2")
-		{
-			result = "BAROUT " + barout_2;
-		}
-		else if (cmd.find("RIP") != -1)
+		else if (command == "RIP")
 		{
 			std::string getmsg;
 			int aa = cmd.find(" ") + 1;
@@ -36,11 +41,47 @@ public:
 			int nSlot_status = ioValue[nSlot];
 			result = "RIP " + getmsg + "," + boost::lexical_cast<std::string>(nSlot_status);
 		}
-		else
+		else if (cmd.find("PANELCHECK") != -1)
 		{
-			result = cmd;
-		}
+			// Panel check에 관한 리턴 명령어 수행
+			
+			// 1,1 -> dispensing
+			// 2,1 -> cooling dispensing
+			// 3,1 -> optic
+			// 5,1 -> gripper
 
+			if (command_value == "5,1")
+			{
+				if (gripper_command::getInstance().panelCheck_gripper == true)
+					result = "PANELCHECK 5,1,1";
+				else
+					result = "PANELCHECK 5,1,0";
+			}
+			
+			if (command_value == "1,1")
+			{
+				if (gripper_command::getInstance().panelCheck_dispensing == true)
+					result = "PANELCHECK 1,1,1";
+				else
+					result = "PANELCHECK 1,1,0";
+			}
+
+			if (command_value == "2,1")
+			{
+				if (gripper_command::getInstance().panelCheck_cooling == true)
+					result = "PANELCHECK 2,1,1";
+				else
+					result = "PANELCHECK 2,1,0";
+			}
+
+			if (command_value == "3,1")
+			{
+				if (gripper_command::getInstance().panelCheck_optic == true)
+					result = "PANELCHECK 3,1,1";
+				else
+					result = "PANELCHECK 3,1,0";
+			}
+		}
 
 		result += ",1";
 		return result;
