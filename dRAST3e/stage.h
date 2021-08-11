@@ -16,7 +16,7 @@ public:
 			result = "MPS OPTIC 0,0,0,0";
 		}
 		else
-		{
+		{ 
 			result = cmd;
 		}
 
@@ -63,17 +63,18 @@ public:
 		getmsg = msg.substr(aa);
 
 		getmsg = stage_command::getInstance().check_Command(getmsg);
-
+		std::this_thread::sleep_for(std::chrono::milliseconds(delay_TCP));
 		if (getmsg.length() > 0)
 			sv->sendMsg(getmsg.c_str());
 	}
 
 	void tcp_delay(int second)
 	{
-		sv->delay_TCP(second);
+		delay_TCP = second;
 	}
 
 private:
 	server* sv = nullptr;
 	int port_ = 0;
+	int delay_TCP = 0;
 };

@@ -31,7 +31,6 @@ public:
 		do_write(data);
 	}
 
-	int delay_TCP = 1;
 private:
 	void sendMessage(std::string data, std::string type) {
 
@@ -65,7 +64,6 @@ private:
 	{
 		auto self(shared_from_this());
 
-		std::this_thread::sleep_for(std::chrono::milliseconds(delay_TCP));
 		socket_.async_read_some(boost::asio::buffer(data_, max_length),
 			[&, self](boost::system::error_code ec, std::size_t length)
 			{
@@ -77,35 +75,29 @@ private:
 					std::string rx = str.substr(0, aa);
 
 					sendMessage(rx, "rx");
-				}
-				else
-				{
-
+					do_read();
 				}
 			});
 	}
 
 	void do_write(const char* data)
 	{
+		do_read();
+
 		std::string str(data);
 		txMsg = str;
 		str += "\r\n";
 
 		auto self(shared_from_this());
-		std::this_thread::sleep_for(std::chrono::milliseconds(delay_TCP));
+		
 		boost::asio::async_write(socket_, boost::asio::buffer(str.c_str(), str.length()),
 			[&](boost::system::error_code ec, std::size_t /*length*/)
 			{
 				if (!ec)
 				{
 					sendMessage(txMsg, "tx");
-					
-					do_read();
 				}
 			});
-
-
-
 	}
 
 	tcp::socket socket_;
@@ -133,7 +125,7 @@ public:
 
 	void delay_TCP(int time)
 	{
-		test->delay_TCP = time;
+		
 	}
 private:
 	void accept()
